@@ -23,6 +23,7 @@ stnIds = 108 #서울 108지점
 # #현재 시점을 기준으로 전날 ----------------------------------------------------------------------
 startDtHh = ( datetime.now() + timedelta(days=-1) ).replace(hour=0)
 endDtHh   = startDtHh.replace(hour=23)
+print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}]")
 
 # #==============================================================================================
 # #전날 관측자료 조회 -----------------------------------------------------------
@@ -40,6 +41,7 @@ df_WthrDataList.to_csv('./file_name_Asos_yesterday.csv', encoding='euc-kr')
     한 번 조회에 24시간을 권장을 합니다. """
 startDtHh = datetime.strptime("2020-12-01 00:00:00", "%Y-%m-%d %H:%M:%S")
 endDtHh   = datetime.strptime("2020-12-15 23:00:00", "%Y-%m-%d %H:%M:%S")
+print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}]")
 
 df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh)
 print(df_WthrDataList)

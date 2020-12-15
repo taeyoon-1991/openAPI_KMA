@@ -12,7 +12,6 @@
 from datetime import datetime, timedelta
 from urllib.request import urlopen
 import xml.etree.ElementTree as ET
-from numpy.core.fromnumeric import product
 
 import pandas as pd
 import numpy as np
@@ -203,7 +202,7 @@ class AsosHourlyInfoService:
         DF.sort_index(inplace=True);DF.drop('item',axis=1,inplace=True)
         DF.index.name = 'tm'
 
-        start = pd.to_datetime(startDtHh)
-        end   = pd.to_datetime(endDtHh)
+        start = pd.to_datetime(startDtHh.replace(minute=0,second=0,microsecond=0))
+        end   = pd.to_datetime(  endDtHh.replace(minute=0,second=0,microsecond=0))
         df_time = pd.DataFrame(index=(pd.date_range(start, end, freq='H')))
         return pd.concat([ df_time, DF ],axis=1)
