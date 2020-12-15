@@ -1,5 +1,5 @@
 ###########################################################
-# File_name: tutorial_VilageFcstInfoService.py
+# File: tutorial_VilageFcstInfoService.py
 #
 # Python == 3.8.5
 #
