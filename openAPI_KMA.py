@@ -1,5 +1,5 @@
 ###########################################################
-# File_name: openAPI_KMA.py
+# File: openAPI_KMA.py
 #
 # Python == 3.8.5
 # numpy  == 1.19.2
