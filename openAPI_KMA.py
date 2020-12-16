@@ -181,7 +181,7 @@ class AsosHourlyInfoService:
     def __init__(self, ServiceKey=''):
         self.ServiceKey	= ServiceKey
 
-    def getWthrDataList(self,stnIds,startDtHh,endDtHh,save_path=False):
+    def getWthrDataList(self, stnIds, startDtHh, endDtHh, save_path=False):
         stnIds = stnIds
         startDt = startDtHh.strftime("%Y%m%d")
         startHh = startDtHh.strftime("%H")
@@ -296,7 +296,6 @@ class MidFcstInfoService:
         DF['regId'] = regId;DF['tmFc'] = tmFc
         DF.set_index('Date',inplace=True);DF.index = pd.to_datetime(DF.index)
         return DF
-
 
     def getMidSeaFcst(self, regId, tmFc, save_path=False):
         tmFc = self.get_tmFc(tmFc)
