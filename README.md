@@ -79,10 +79,10 @@
 사용예시: [tutorial_MidFcstInfoService.py](tutorial_MidFcstInfoService.py)
 |서비스명|기능|인자|기타|
 |------|---|---|---|
-|중기전망조회|**getMidFcst**|지점번호, 발표시각||
-|중기기온조회|**getMidTa**|예보구역코드, 발표시각||
-|중기육상예보조회|**getMidLandFcst**|예보구역코드, 발표시각||
-|중기해상예보조회|**getMidSeaFcst**|예보구역코드, 발표시각||
+|중기전망조회|**getMidFcst**|지점번호, 발표시각|지점코드 참고|
+|중기기온조회|**getMidTa**|예보구역코드, 발표시각|중기기온예보구역 코드 참고|
+|중기육상예보조회|**getMidLandFcst**|예보구역코드, 발표시각|중기육상예보구역 코드 참고|
+|중기해상예보조회|**getMidSeaFcst**|예보구역코드, 발표시각|중기해상예보구역 코드 참고|
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
