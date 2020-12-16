@@ -4,7 +4,7 @@
 포함된 모든 기능은 익숙한 형태의 **Dataframe** 형식으로 변환하는데 초점을 맞췄습니다.  
 서비스별 상세 가이드는 [DOCUMENT](DOCUMENT/) 디렉토리에 Word 파일로 포함되어 있습니다. 
 
-(2020년 12월 16일 기준)
+(2020년 12월 17일 기준)
 * [동네예보 조회서비스(VilageFcstInfoService)](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)
 * [중기예보 조회서비스(MidFcstInfoService)](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)
 * [지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
