@@ -24,12 +24,11 @@ stnIds = 108 #서울 108지점
 startDtHh = ( datetime.now() + timedelta(days=-1) ).replace(hour=0)
 endDtHh   = startDtHh.replace(hour=23)
 print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}]")
-print()
 
 # #==============================================================================================
 # #전날 관측자료 조회 -----------------------------------------------------------
 df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh)
-print(df_WthrDataList)
+print(df_WthrDataList, '\n')
 # #예보정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
 #df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh,save_path="./file_name_Asos.xml")
 
