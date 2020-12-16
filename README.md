@@ -82,6 +82,9 @@
 |중기기온조회|**getMidTa**|예보구역코드, 발표시각|중기기온예보구역 코드 참고|
 |중기육상예보조회|**getMidLandFcst**|예보구역코드, 발표시각|중기육상예보구역 코드 참고|
 |중기해상예보조회|**getMidSeaFcst**|예보구역코드, 발표시각|중기해상예보구역 코드 참고|
+* 서비스별 발표시각은 조회시간 직전으로 자동 설정되며, 24시간 이내에 자료만 조회가 가능합니다.  
+* 서비스별 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
+* [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
