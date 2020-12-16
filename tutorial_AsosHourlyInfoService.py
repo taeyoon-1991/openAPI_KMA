@@ -23,18 +23,18 @@ stnIds = 108 #서울 108지점
 # #현재 시점을 기준으로 전날 ----------------------------------------------------------------------
 startDtHh = ( datetime.now() + timedelta(days=-1) ).replace(hour=0)
 endDtHh   = startDtHh.replace(hour=23)
-print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}]")
+print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}] 지상(종관, ASOS) 시간자료 조회서비스")
 
 # #==============================================================================================
 # #전날 관측자료 조회 -----------------------------------------------------------
 df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh)
 print(df_WthrDataList)
 # #예보정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
-#df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh,save_path="./file_name_Asos.xml")
+#df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh,save_path="./test_AsosHourlyInfoService_WthrDataList.xml")
 
 # #데이터프레임을 CSV파일로 저장하고 싶으면 [ .to_csv("./file_name.csv") ] 를 붙이세요.
-df_WthrDataList.to_csv('./file_name_Asos_yesterday.csv', encoding='euc-kr')
-#df_WthrDataList.to_csv('./file_name_Asos_yesterday.csv', encoding='utf-8')
+df_WthrDataList.to_csv('./test_AsosHourlyInfoService_WthrDataList_yesterday.csv', encoding='euc-kr')
+#df_WthrDataList.to_csv('./test_AsosHourlyInfoService_WthrDataList_yesterday.csv', encoding='utf-8')
 
 # #2020년 12월 1일 0시부터 2020년 12월 15일 23시까지 관측자료 조회 ---------------------------------
 """ 단, 한 번 최대 999개까지 조회되기 때문에 기간은 한 달이내로 설정하세요. 
@@ -45,5 +45,5 @@ print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}]")
 
 df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh)
 print(df_WthrDataList)
-df_WthrDataList.to_csv('./file_name_Asos_15days.csv', encoding='euc-kr')
+df_WthrDataList.to_csv('./test_AsosHourlyInfoService_WthrDataList_15days.csv', encoding='euc-kr')
 # #==============================================================================================
