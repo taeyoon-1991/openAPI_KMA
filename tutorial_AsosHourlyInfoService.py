@@ -24,6 +24,7 @@ stnIds = 108 #서울 108지점
 startDtHh = ( datetime.now() + timedelta(days=-1) ).replace(hour=0)
 endDtHh   = startDtHh.replace(hour=23)
 print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}]")
+print()
 
 # #==============================================================================================
 # #전날 관측자료 조회 -----------------------------------------------------------
