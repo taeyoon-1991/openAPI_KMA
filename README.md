@@ -12,7 +12,6 @@
   <details>
     <summary>(예정)</summary>
 
-    * 중기예보 조회서비스(MidFcstInfoService)  
     * 동네예보 통보문 조회서비스(VilageFcstMsgService)  
     * 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)  
     * 기상특보 조회서비스(WthrWrnInfoService)  
