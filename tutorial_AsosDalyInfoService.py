@@ -26,7 +26,7 @@ endDt   = ( datetime.now() + timedelta(days= -1) )
 print(f"[Term: {startDt:%Y-%m-%d} ~ {endDt:%Y-%m-%d}] 지상(종관, ASOS) 일자료 조회서비스")
 
 # #==============================================================================================
-# #전날 관측자료 조회 -----------------------------------------------------------
+# #전날 관측자료 조회 ----------------------------------------------------------------------------
 df_WthrDataList = KMA.getWthrDataList(stnIds,startDt,endDt)
 print(df_WthrDataList, '\n')
 # #관측정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
@@ -37,3 +37,4 @@ print(df_WthrDataList, '\n')
 # #데이터프레임을 CSV파일로 저장하고 싶으면 [ .to_csv("./file_name.csv") ] 를 붙이세요.
 df_WthrDataList.to_csv('./test_AsosDalyInfoService_WthrDataList_15days.csv', encoding='euc-kr')
 #df_WthrDataList.to_csv('./test_AsosHourlyInfoService_WthrDataList_yesterday.csv', encoding='utf-8')
+# #==============================================================================================
