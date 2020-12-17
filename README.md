@@ -91,7 +91,9 @@
   * [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
 
 </details>
+
 ---
+
 <details>
   <summary><strong>관측정보 관련 서비스</strong></summary>
 
