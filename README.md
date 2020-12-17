@@ -61,7 +61,7 @@
 "일반 인증키"는 본 모듈의 ServiceKey 로 사용되며 외부로 노출되지 않게 주의하십시오.  
 
 <details>
-  <summary>예보 관련 서비스</summary>
+  <summary><strong>예보 관련 서비스</strong></summary>
 
   ## 동네예보 조회서비스(VilageFcstInfoService)
   사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
