@@ -92,7 +92,7 @@
 
 </details>
 
-***
+___
 
 <details>
   <summary><strong>관측정보 관련 서비스</strong></summary>
@@ -122,6 +122,8 @@
 * [기상청01_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청02_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드.docx)
 
 </details>
+
+___
 
 
 # 참고
