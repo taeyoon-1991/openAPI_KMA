@@ -59,34 +59,37 @@
 [공공데이터 포털](https://Data.go.kr)에 가입해서 원하는 서비스에 대하여 활용신청을 합니다.  
 마이페이지에서 해당 서비스 정보를 확인하면 "일반 인증키" 항목이 표시됩니다.  
 "일반 인증키"는 본 모듈의 ServiceKey 로 사용되며 외부로 노출되지 않게 주의하십시오.  
-<details><summary><h2>예보 관련 서비스</h2></summary>
 
-## 동네예보 조회서비스(VilageFcstInfoService)
-사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
+<details>
+  <summary><h2>예보 관련 서비스</h2></summary>
 
-|서비스명|기능|인자|기타|
-|------|---|---|---|
-|예보버전조회|**getFcstVersion**|서비스구분, 발표시각|'ODAM':실황/'VSRT':초단기예보/'SHRT':동네예보|
-|동네예보조회|**getVilageFcst**|X좌표, Y좌표, 발표시각|get_VilageFcst_baseTime(조회시간)|
-|초단기예보조회|**getUltraSrtFcst**|X좌표, Y좌표, 발표시각|get_UltraSrtFcst_baseTime(조회시간)|
-|초단기실황조회|**getUltraSrtNcst**|X좌표, Y좌표, 발표시각|get_UltraSrtNcst_baseTime(조회시간)|
+  ## 동네예보 조회서비스(VilageFcstInfoService)
+  사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
 
-* 서비스별 발표시각은 조회시간 직전으로 자동 설정되며, 24시간 이내에 자료만 조회가 가능합니다.  
-* [동네예보 지점 좌표(위도 경도)_(20200401 기준)](METADATA/동네예보&#32;지점&#32;좌표(위도&#32;경도)_(20200401&#32;기준).csv)  
-* [기상청18_동네예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)  
+  |서비스명|기능|인자|기타|
+  |------|---|---|---|
+  |예보버전조회|**getFcstVersion**|서비스구분, 발표시각|'ODAM':실황/'VSRT':초단기예보/'SHRT':동네예보|
+  |동네예보조회|**getVilageFcst**|X좌표, Y좌표, 발표시각|get_VilageFcst_baseTime(조회시간)|
+  |초단기예보조회|**getUltraSrtFcst**|X좌표, Y좌표, 발표시각|get_UltraSrtFcst_baseTime(조회시간)|
+  |초단기실황조회|**getUltraSrtNcst**|X좌표, Y좌표, 발표시각|get_UltraSrtNcst_baseTime(조회시간)|
 
-## 중기예보 조회서비스(MidFcstInfoService)
-사용예시: [tutorial_MidFcstInfoService.py](tutorial_MidFcstInfoService.py)
-|서비스명|기능|인자|기타|
-|------|---|---|---|
-|중기전망조회|**getMidFcst**|지점번호, 발표시각|지점코드 참고|
-|중기기온조회|**getMidTa**|예보구역코드, 발표시각|중기기온예보구역 코드 참고|
-|중기육상예보조회|**getMidLandFcst**|예보구역코드, 발표시각|중기육상예보구역 코드 참고|
-|중기해상예보조회|**getMidSeaFcst**|예보구역코드, 발표시각|중기해상예보구역 코드 참고|
-* 중기예보는 모두 일 2회 (6시, 18시) 생산되며 발표시각은 조회시간 직전으로 자동 설정됩니다.
-* 동네예보와 마찬가지로 24시간 이내에 자료만 조회가 가능합니다.  
-* 서비스별 지점 및 구역 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
-* [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
+  * 서비스별 발표시각은 조회시간 직전으로 자동 설정되며, 24시간 이내에 자료만 조회가 가능합니다.  
+  * [동네예보 지점 좌표(위도 경도)_(20200401 기준)](METADATA/동네예보&#32;지점&#32;좌표(위도&#32;경도)_(20200401&#32;기준).csv)  
+  * [기상청18_동네예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)  
+
+  ## 중기예보 조회서비스(MidFcstInfoService)
+  사용예시: [tutorial_MidFcstInfoService.py](tutorial_MidFcstInfoService.py)
+  |서비스명|기능|인자|기타|
+  |------|---|---|---|
+  |중기전망조회|**getMidFcst**|지점번호, 발표시각|지점코드 참고|
+  |중기기온조회|**getMidTa**|예보구역코드, 발표시각|중기기온예보구역 코드 참고|
+  |중기육상예보조회|**getMidLandFcst**|예보구역코드, 발표시각|중기육상예보구역 코드 참고|
+  |중기해상예보조회|**getMidSeaFcst**|예보구역코드, 발표시각|중기해상예보구역 코드 참고|
+  * 중기예보는 모두 일 2회 (6시, 18시) 생산되며 발표시각은 조회시간 직전으로 자동 설정됩니다.
+  * 동네예보와 마찬가지로 24시간 이내에 자료만 조회가 가능합니다.  
+  * 서비스별 지점 및 구역 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
+  * [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
+
 </details>
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
