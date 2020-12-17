@@ -8,6 +8,7 @@
 * [동네예보 조회서비스(VilageFcstInfoService)](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)
 * [중기예보 조회서비스(MidFcstInfoService)](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)
 * [지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
+* [지상(종관, ASOS) 일자료 조회서비스(AsosHourlyInfoService)](DOCUMENT/기상청01_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드.docx)
 
   <details>
     <summary>(예정)</summary>
