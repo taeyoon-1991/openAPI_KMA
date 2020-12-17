@@ -123,13 +123,28 @@ ___
 
 </details>
 
-___
+---
+
+<details>
+  <summary><strong>위성 및 레이더 관련 서비스</strong></summary>
+  (예정)
+</details>
+
+---
 
 <details>
   <summary><strong>특보 및 지진/태풍 관련 서비스</strong></summary>
   (예정)
 </details>
 
+---
+
+<details>
+  <summary><strong>산업 및 생활 관련 서비스</strong></summary>
+  (예정)
+</details>
+
+---
 
 # 참고
 + [기상청(Korea Meteorological Administration)](http://www.kma.go.kr/)
