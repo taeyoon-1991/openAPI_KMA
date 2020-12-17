@@ -133,7 +133,7 @@ ___
 ---
 
 <details>
-  <summary><strong>산업 및 생활 관련 서비스</strong></summary>
+  <summary><strong>수치예보 관련 서비스</strong></summary>
   (예정)
 </details>
 
