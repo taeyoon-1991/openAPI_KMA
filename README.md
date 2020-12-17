@@ -62,7 +62,6 @@
 
 <details>
   <summary><strong>예보정보 관련 서비스</strong></summary>
-  <blockquote>  
     
   ## 동네예보 조회서비스(VilageFcstInfoService)
   사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
@@ -91,12 +90,10 @@
   * 서비스별 지점 및 구역 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
   * [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
 
-  </blockquote>  
 </details>
-
+---
 <details>
   <summary><strong>관측정보 관련 서비스</strong></summary>
-  <blockquote>    
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
@@ -122,7 +119,6 @@
 * [META_관측지점정보_20201215203551](METADATA/META_관측지점정보_20201215203551.csv)  
 * [기상청01_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청02_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드.docx)
 
-  </blockquote>  
 </details>
 
 
