@@ -61,7 +61,7 @@
 "일반 인증키"는 본 모듈의 ServiceKey 로 사용되며 외부로 노출되지 않게 주의하십시오.  
 
 <details>
-  <summary><strong>예보정보 관련 서비스</strong></summary>
+  <summary><strong>1. 예보정보 관련 서비스</strong></summary>
     
   ## 동네예보 조회서비스(VilageFcstInfoService)
   사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
@@ -95,7 +95,7 @@
 ___
 
 <details>
-  <summary><strong>관측정보 관련 서비스</strong></summary>
+  <summary><strong>2. 관측정보 관련 서비스</strong></summary>
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
@@ -126,35 +126,35 @@ ___
 ---
 
 <details>
-  <summary><strong>위성 및 레이더 관련 서비스</strong></summary>
+  <summary><strong>3. 위성 및 레이더 관련 서비스</strong></summary>
   (예정)
 </details>
 
 ---
 
 <details>
-  <summary><strong>수치예보 관련 서비스</strong></summary>
+  <summary><strong>4. 수치예보 관련 서비스</strong></summary>
   (예정)
 </details>
 
 ---
 
 <details>
-  <summary><strong>특보 및 지진/태풍 관련 서비스</strong></summary>
+  <summary><strong>5. 특보 및 지진/태풍 관련 서비스</strong></summary>
   (예정)
 </details>
 
 ---
 
 <details>
-  <summary><strong>생활 및 산업 관련 서비스</strong></summary>
+  <summary><strong>6. 생활 및 산업 관련 서비스</strong></summary>
   (예정)
 </details>
 
 ---
 
 <details>
-  <summary><strong>기타</strong></summary>
+  <summary><strong>7. 기타</strong></summary>
   (예정)
 </details>
 
