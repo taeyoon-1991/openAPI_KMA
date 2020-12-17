@@ -30,6 +30,7 @@ print(f"[Time: {time:%Y-%m-%d %H:%M} 동네예보 조회서비스]")
 baseTime = KMA.get_VilageFcst_baseTime(time)['baseTime']
 
 # #동네예보 버전 조회 ------------------------------------------------------------------------
+# #버전 조회는 예보 생산 시각으로 datetime 형식으로 return 받습니다.
 version  = KMA.getFcstVersion("SHRT", baseTime) 
 # #버전정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
 # #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
