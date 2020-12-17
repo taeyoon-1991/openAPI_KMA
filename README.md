@@ -63,7 +63,7 @@
 <details>
   <summary><strong>1. 예보정보 관련 서비스</strong></summary>
     
-  ## 동네예보 조회서비스(VilageFcstInfoService)
+  ## 1.1 동네예보 조회서비스(VilageFcstInfoService)
   사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
 
   |서비스명|기능|인자|기타|
@@ -77,7 +77,7 @@
   * [동네예보 지점 좌표(위도 경도)_(20200401 기준)](METADATA/동네예보&#32;지점&#32;좌표(위도&#32;경도)_(20200401&#32;기준).csv)  
   * [기상청18_동네예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)  
 
-  ## 중기예보 조회서비스(MidFcstInfoService)
+  ## 1.2 중기예보 조회서비스(MidFcstInfoService)
   사용예시: [tutorial_MidFcstInfoService.py](tutorial_MidFcstInfoService.py)
   |서비스명|기능|인자|기타|
   |------|---|---|---|
@@ -97,7 +97,7 @@ ___
 <details>
   <summary><strong>2. 관측정보 관련 서비스</strong></summary>
 
-## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
+## 1.1 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
 |서비스명|기능|인자|기타|
 |------|---|---|---|
@@ -110,7 +110,7 @@ ___
 * [META_관측지점정보_20201215203551](METADATA/META_관측지점정보_20201215203551.csv)  
 * [기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
 
-## 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)
+## 1.2 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosDalyInfoService.py)
 |서비스명|기능|인자|기타|
 |------|---|---|---|
