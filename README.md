@@ -61,8 +61,8 @@
 "일반 인증키"는 본 모듈의 ServiceKey 로 사용되며 외부로 노출되지 않게 주의하십시오.  
 
 <details>
-  <summary><i>예보 관련 서비스<i></summary>
-
+  <summary><strong>예보정보 관련 서비스</strong></summary>
+>Blockquotes
   ## 동네예보 조회서비스(VilageFcstInfoService)
   사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
 
@@ -92,6 +92,9 @@
 
 </details>
 
+<details>
+  <summary><strong>관측정보 관련 서비스</strong></summary>
+
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
 |서비스명|기능|인자|기타|
@@ -115,6 +118,8 @@
 * 한 번에 최대 999개까지 조회되기 때문에 기간은 2년 이내로 설정해주시기 바랍니다.  
 * [META_관측지점정보_20201215203551](METADATA/META_관측지점정보_20201215203551.csv)  
 * [기상청01_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청02_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드.docx)
+
+</details>
 
 
 # 참고
