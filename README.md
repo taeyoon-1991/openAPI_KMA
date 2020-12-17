@@ -133,6 +133,13 @@ ___
 ---
 
 <details>
+  <summary><strong>산업 및 생활 관련 서비스</strong></summary>
+  (예정)
+</details>
+
+---
+
+<details>
   <summary><strong>특보 및 지진/태풍 관련 서비스</strong></summary>
   (예정)
 </details>
@@ -141,6 +148,13 @@ ___
 
 <details>
   <summary><strong>산업 및 생활 관련 서비스</strong></summary>
+  (예정)
+</details>
+
+---
+
+<details>
+  <summary><strong>기타</strong></summary>
   (예정)
 </details>
 
