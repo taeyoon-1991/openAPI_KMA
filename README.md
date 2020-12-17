@@ -14,7 +14,6 @@
     <summary>(예정)</summary>
 
     * 동네예보 통보문 조회서비스(VilageFcstMsgService)  
-    * 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)  
     * 기상특보 조회서비스(WthrWrnInfoService)  
     * 생활기상지수 조회서비스(LivingWthrIdxService01)  
     * 태풍정보 조회서비스(TyphoonInfoService)  
