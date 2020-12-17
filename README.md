@@ -4,13 +4,14 @@
 포함된 모든 기능은 익숙한 형태의 **Dataframe** 형식으로 변환하는데 초점을 맞췄습니다.  
 서비스별 상세 가이드는 [DOCUMENT](DOCUMENT/) 디렉토리에 Word 파일로 포함되어 있습니다. 
 
-(2020년 12월 16일 기준)
+(2020년 12월 17일 기준)
 * [동네예보 조회서비스(VilageFcstInfoService)](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)
+* [중기예보 조회서비스(MidFcstInfoService)](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)
 * [지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
+
   <details>
     <summary>(예정)</summary>
 
-    * 중기예보 조회서비스(MidFcstInfoService)  
     * 동네예보 통보문 조회서비스(VilageFcstMsgService)  
     * 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)  
     * 기상특보 조회서비스(WthrWrnInfoService)  
@@ -73,6 +74,18 @@
 * [동네예보 지점 좌표(위도 경도)_(20200401 기준)](METADATA/동네예보&#32;지점&#32;좌표(위도&#32;경도)_(20200401&#32;기준).csv)  
 * [기상청18_동네예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)  
 
+## 중기예보 조회서비스(MidFcstInfoService)
+사용예시: [tutorial_MidFcstInfoService.py](tutorial_MidFcstInfoService.py)
+|서비스명|기능|인자|기타|
+|------|---|---|---|
+|중기전망조회|**getMidFcst**|지점번호, 발표시각|지점코드 참고|
+|중기기온조회|**getMidTa**|예보구역코드, 발표시각|중기기온예보구역 코드 참고|
+|중기육상예보조회|**getMidLandFcst**|예보구역코드, 발표시각|중기육상예보구역 코드 참고|
+|중기해상예보조회|**getMidSeaFcst**|예보구역코드, 발표시각|중기해상예보구역 코드 참고|
+* 중기예보는 모두 일 2회 (6시, 18시) 생산되며 발표시각은 조회시간 직전으로 자동 설정됩니다.
+* 동네예보와 마찬가지로 24시간 이내에 자료만 조회가 가능합니다.  
+* 서비스별 지점 및 구역 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
+* [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
