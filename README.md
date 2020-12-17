@@ -97,7 +97,7 @@ ___
 <details>
   <summary><strong>2. 관측정보 관련 서비스</strong></summary>
 
-## 1.1 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
+## 2.1 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
 |서비스명|기능|인자|기타|
 |------|---|---|---|
@@ -110,7 +110,7 @@ ___
 * [META_관측지점정보_20201215203551](METADATA/META_관측지점정보_20201215203551.csv)  
 * [기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
 
-## 1.2 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)
+## 2.2 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosDalyInfoService.py)
 |서비스명|기능|인자|기타|
 |------|---|---|---|
