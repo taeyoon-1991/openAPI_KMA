@@ -100,6 +100,18 @@
 * [META_관측지점정보_20201215203551](METADATA/META_관측지점정보_20201215203551.csv)  
 * [기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
 
+## 지상(종관, ASOS) 일자료 조회서비스(AsosDalyInfoService)
+사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosDalyInfoService.py)
+|서비스명|기능|인자|기타|
+|------|---|---|---|
+|기상관측일자료목록조회|**getWthrDataList**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+* 조회기간은 지점별 운영기간 모두 가능하며, 전날 자료까지만 조회가능합니다. 
+* 단, 서버사정에 따라 갱신이 늦을 수 있습니다. (보통 오전 10시 이후 전부 조회 가능)
+* 한 번에 최대 999개까지 조회되기 때문에 기간은 2년 이내로 설정해주시기 바랍니다.  
+* [META_관측지점정보_20201215203551](METADATA/META_관측지점정보_20201215203551.csv)  
+* [기상청01_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드](DOCUMENT/기상청02_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드.docx)
+
+
 # 참고
 + [기상청(Korea Meteorological Administration)](http://www.kma.go.kr/)
 
