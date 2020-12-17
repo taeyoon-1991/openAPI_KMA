@@ -32,7 +32,9 @@ baseTime = KMA.get_VilageFcst_baseTime(time)['baseTime']
 # #동네예보 버전 조회 ------------------------------------------------------------------------
 version  = KMA.getFcstVersion("SHRT", baseTime) 
 # #버전정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
+# #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
 #version  = KMA.getFcstVersion("SHRT", baseTime, save_path = "./test_VilageFcstInfoService_FcstVersion.xml") 
+#version  = KMA.getFcstVersion("SHRT", baseTime, show_url=True) 
 print(f"baseTime of VilageFcst: {baseTime:%Y-%m-%d %H:%M}(ver.{version:%Y.%m.%d.%H.%M})")
 
 # #동네예보 조회 

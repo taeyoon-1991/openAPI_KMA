@@ -29,7 +29,9 @@ stnId = 108
 df_MidFcst = KMA.getMidFcst(stnId, time)
 print(df_MidFcst, '\n')
 # #예보정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
+# #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
 #df_MidFcst = KMA.getMidFcst(stnId, time, save_path="./file_name_data.xml")
+#df_MidFcst = KMA.getMidFcst(stnId, time, show_url=True)
 
 # #데이터프레임을 CSV파일로 저장하고 싶으면 [ .to_csv("./file_name.csv") ] 를 붙이세요.
 df_MidFcst.to_csv('./test_MidFcstInfoService_MidFcst.csv',encoding='euc-kr')

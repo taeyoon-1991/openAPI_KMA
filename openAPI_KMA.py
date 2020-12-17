@@ -84,7 +84,7 @@ class VilageFcstInfoService:
         _check_valid_time(ncst_time)
         return {"Production-time": ncst_time,"baseTime":ncst_time.replace(minute=0)}
 
-    def getFcstVersion(self, ftype, basedatetime, save_path=False):
+    def getFcstVersion(self, ftype, basedatetime, save_path=False, show_url=False):
         assert ftype in ['ODAM','VSRT','SHRT'], f"ftype shoud be one of 'ODAM'/'VSRT'/'SHRT', (UltraSrtNcst-ODAM, UltraSrtFcst-VSRT, VilageFcst-SHRT)"
         
         _check_valid_time(basedatetime)        
@@ -94,6 +94,7 @@ class VilageFcstInfoService:
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=10&dataType=XML"
         url = f"{url}&ftype={ftype}&basedatetime={basedatetime}&"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -111,7 +112,7 @@ class VilageFcstInfoService:
                             return version
             else: assert False, f"{ftype},{basedatetime}: {resultMsg}({resultCode})"
 
-    def __get_Fcst(self, X, Y, baseDateTime, save_path, ftype, version):
+    def __get_Fcst(self, X, Y, baseDateTime, save_path, ftype, version, show_url):
         baseDate = baseDateTime.strftime("%Y%m%d")
         baseTime = baseDateTime.strftime("%H%M")
 
@@ -120,6 +121,7 @@ class VilageFcstInfoService:
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&base_date={baseDate}&base_time={baseTime}"
         url = f"{url}&nx={X}&ny={Y}"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -136,7 +138,7 @@ class VilageFcstInfoService:
         DF.index.name = 'fcstDateTime'
         return DF
 
-    def __get_Ncst(self, X, Y, baseDateTime, save_path, version):
+    def __get_Ncst(self, X, Y, baseDateTime, save_path, version, show_url):
         baseDate = baseDateTime.strftime("%Y%m%d")
         baseTime = baseDateTime.strftime("%H%M")
 
@@ -145,6 +147,7 @@ class VilageFcstInfoService:
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&base_date={baseDate}&base_time={baseTime}"
         url = f"{url}&nx={X}&ny={Y}"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -162,26 +165,26 @@ class VilageFcstInfoService:
         return DF
 
 
-    def getVilageFcst(self, X, Y, datetime, save_path=False):
+    def getVilageFcst(self, X, Y, datetime, save_path=False, show_url=False):
         baseDateTime = self.get_VilageFcst_baseTime(datetime)['baseTime']
         version = self.getFcstVersion('SHRT', baseDateTime)
-        return self.__get_Fcst(X,Y,baseDateTime,save_path,'VilageFcst',version)
+        return self.__get_Fcst(X,Y,baseDateTime,save_path,'VilageFcst',version,show_url)
 
-    def getUltraSrtFcst(self, X, Y, datetime, save_path=False):
+    def getUltraSrtFcst(self, X, Y, datetime, save_path=False, show_url=False):
         baseDateTime = self.get_UltraSrtFcst_baseTime(datetime)['baseTime']
         version = self.getFcstVersion('VSRT', baseDateTime)
-        return self.__get_Fcst(X,Y,baseDateTime,save_path,'UltraSrtFcst',version)
+        return self.__get_Fcst(X,Y,baseDateTime,save_path,'UltraSrtFcst',version,show_url)
 
-    def getUltraSrtNcst(self, X, Y, datetime, save_path=False):
+    def getUltraSrtNcst(self, X, Y, datetime, save_path=False, show_url=False):
         baseDateTime = self.get_UltraSrtNcst_baseTime(datetime)['baseTime']
         version = self.getFcstVersion('ODAM', baseDateTime)
-        return self.__get_Ncst(X,Y,baseDateTime,save_path,version)
+        return self.__get_Ncst(X,Y,baseDateTime,save_path,version, show_url)
 
 class AsosHourlyInfoService:
     def __init__(self, ServiceKey=''):
         self.ServiceKey	= ServiceKey
 
-    def getWthrDataList(self, stnIds, startDtHh, endDtHh, save_path=False):
+    def getWthrDataList(self, stnIds, startDtHh, endDtHh, save_path=False, show_url=False):
         stnIds = stnIds
         startDt = startDtHh.strftime("%Y%m%d")
         startHh = startDtHh.strftime("%H")
@@ -193,8 +196,10 @@ class AsosHourlyInfoService:
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&dataCd=ASOS&dateCd=HR"
         url = f"{url}&startDt={startDt}&startHh={startHh}"
-        url = f"{url}&endDt={endDt}&endHh={endHh}"
-        url = f"{url}&stnIds={stnIds}&schListCnt=999"
+        url = f"{url}&endDt={endDt}&endHh={endHh}&stnIds={stnIds}"
+        #url = f"{url}&stnIds={stnIds}&schListCnt=999"
+        if show_url: print(url)
+
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
 
@@ -222,13 +227,14 @@ class MidFcstInfoService:
         _check_valid_time(time)
         return time
 
-    def getMidFcst(self, stnId, tmFc, save_path=False):
+    def getMidFcst(self, stnId, tmFc, save_path=False, show_url=False):
         tmFc = self.get_tmFc(tmFc)
 
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidFcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&tmFc={tmFc:%Y%m%d%H%M}&stnId={stnId}"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -237,13 +243,14 @@ class MidFcstInfoService:
         DF.set_index('tmFc',inplace=True);DF.index = pd.to_datetime(DF.index)
         return DF
     
-    def getMidTa(self, regId, tmFc, save_path=False):
+    def getMidTa(self, regId, tmFc, save_path=False, show_url=False):
         tmFc = self.get_tmFc(tmFc)
 
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa"
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&tmFc={tmFc:%Y%m%d%H%M}&regId={regId}"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -267,13 +274,14 @@ class MidFcstInfoService:
         DF.set_index('Date',inplace=True);DF.index = pd.to_datetime(DF.index)
         return DF
 
-    def getMidLandFcst(self, regId, tmFc, save_path=False):
+    def getMidLandFcst(self, regId, tmFc, save_path=False, show_url=False):
         tmFc = self.get_tmFc(tmFc)
         
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&tmFc={tmFc:%Y%m%d%H%M}&regId={regId}"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -297,13 +305,14 @@ class MidFcstInfoService:
         DF.set_index('Date',inplace=True);DF.index = pd.to_datetime(DF.index)
         return DF
 
-    def getMidSeaFcst(self, regId, tmFc, save_path=False):
+    def getMidSeaFcst(self, regId, tmFc, save_path=False, show_url=False):
         tmFc = self.get_tmFc(tmFc)
         
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidSeaFcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
         url = f"{url}&tmFc={tmFc:%Y%m%d%H%M}&regId={regId}"
+        if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
         if save_path: tree.write(save_path, encoding='utf-8')
@@ -330,3 +339,32 @@ class MidFcstInfoService:
         DF['regId'] = regId;DF['tmFc'] = tmFc
         DF.set_index('Date',inplace=True);DF.index = pd.to_datetime(DF.index)
         return DF
+
+class AsosDalyInfoService:
+    def __init__(self, ServiceKey=''):
+        self.ServiceKey	= ServiceKey
+
+    def getWthrDataList(self, stnIds, startDt, endDt, save_path=False, show_url=False):
+        stnIds = stnIds
+        startDt = startDt.date()
+        endDt   = endDt.date()
+
+        url = f"http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList"
+        url = f"{url}?serviceKey={self.ServiceKey}"
+        url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
+        url = f"{url}&dataCd=ASOS&dateCd=DAY"
+        url = f"{url}&startDt={startDt:%Y%m%d}&endDt={endDt:%Y%m%d}&stnIds={stnIds}"
+        if show_url: print(url)
+
+        tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
+        if save_path: tree.write(save_path, encoding='utf-8')
+
+        DF = _xml_to_dataframe(tree)
+        DF.set_index('tm',inplace=True);DF.index = pd.to_datetime(DF.index)
+        DF.sort_index(inplace=True);DF.drop('item',axis=1,inplace=True)
+        DF.index.name = 'tm'
+
+        start = pd.to_datetime(startDt)
+        end   = pd.to_datetime(  endDt)
+        df_time = pd.DataFrame(index=(pd.date_range(start, end, freq='D')))
+        return pd.concat([ df_time, DF ],axis=1)

@@ -29,8 +29,10 @@ print(f"[Term: {startDtHh:%Y-%m-%d %H:%M} ~ {endDtHh:%Y-%m-%d %H:%M}] 지상(종
 # #전날 관측자료 조회 -----------------------------------------------------------
 df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh)
 print(df_WthrDataList, '\n')
-# #예보정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
+# #관측정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
+# #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
 #df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh,save_path="./test_AsosHourlyInfoService_WthrDataList.xml")
+#df_WthrDataList = KMA.getWthrDataList(stnIds,startDtHh,endDtHh,show_url=True)
 
 # #데이터프레임을 CSV파일로 저장하고 싶으면 [ .to_csv("./file_name.csv") ] 를 붙이세요.
 df_WthrDataList.to_csv('./test_AsosHourlyInfoService_WthrDataList_yesterday.csv', encoding='euc-kr')
