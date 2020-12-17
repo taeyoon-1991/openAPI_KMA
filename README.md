@@ -59,6 +59,8 @@
 [공공데이터 포털](https://Data.go.kr)에 가입해서 원하는 서비스에 대하여 활용신청을 합니다.  
 마이페이지에서 해당 서비스 정보를 확인하면 "일반 인증키" 항목이 표시됩니다.  
 "일반 인증키"는 본 모듈의 ServiceKey 로 사용되며 외부로 노출되지 않게 주의하십시오.  
+<details>
+  <summary>예보관 련 서비스</summary>
 
 ## 동네예보 조회서비스(VilageFcstInfoService)
 사용예시: [tutorial_VilageFcstInfoService.py](tutorial_VilageFcstInfoService.py)
@@ -86,6 +88,7 @@
 * 동네예보와 마찬가지로 24시간 이내에 자료만 조회가 가능합니다.  
 * 서비스별 지점 및 구역 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
 * [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
+</details>
 
 ## 지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)
 사용예시: [tutorial_AsosHourlyInfoService.py](tutorial_AsosHourlyInfoService.py)
