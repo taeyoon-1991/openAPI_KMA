@@ -113,7 +113,7 @@ class VilageFcstInfoService:
                             return version
             else: assert False, f"{ftype},{basedatetime}: {resultMsg}({resultCode})"
 
-    def __get_Fcst(self, X, Y, baseDateTime, save_path, ftype, version, show_url):
+    def __get_Fcst(self, X, Y, baseDateTime, save_path, show_url, ftype, version):
         baseDate = baseDateTime.strftime("%Y%m%d")
         baseTime = baseDateTime.strftime("%H%M")
 
@@ -139,7 +139,7 @@ class VilageFcstInfoService:
         DF.index.name = 'fcstDateTime'
         return DF
 
-    def __get_Ncst(self, X, Y, baseDateTime, save_path, version, show_url):
+    def __get_Ncst(self, X, Y, baseDateTime, save_path, show_url, version):
         baseDate = baseDateTime.strftime("%Y%m%d")
         baseTime = baseDateTime.strftime("%H%M")
 
@@ -169,17 +169,17 @@ class VilageFcstInfoService:
     def getVilageFcst(self, X, Y, datetime, save_path=False, show_url=False):
         baseDateTime = self.get_VilageFcst_baseTime(datetime)['baseTime']
         version = self.getFcstVersion('SHRT', baseDateTime)
-        return self.__get_Fcst(X,Y,baseDateTime,save_path,'VilageFcst',version,show_url)
+        return self.__get_Fcst(X,Y,baseDateTime,save_path,show_url,'VilageFcst',version)
 
     def getUltraSrtFcst(self, X, Y, datetime, save_path=False, show_url=False):
         baseDateTime = self.get_UltraSrtFcst_baseTime(datetime)['baseTime']
         version = self.getFcstVersion('VSRT', baseDateTime)
-        return self.__get_Fcst(X,Y,baseDateTime,save_path,'UltraSrtFcst',version,show_url)
+        return self.__get_Fcst(X,Y,baseDateTime,save_path,show_url,'UltraSrtFcst',version)
 
     def getUltraSrtNcst(self, X, Y, datetime, save_path=False, show_url=False):
         baseDateTime = self.get_UltraSrtNcst_baseTime(datetime)['baseTime']
         version = self.getFcstVersion('ODAM', baseDateTime)
-        return self.__get_Ncst(X,Y,baseDateTime,save_path,version, show_url)
+        return self.__get_Ncst(X,Y,baseDateTime,save_path,show_url,version)
 
 class AsosHourlyInfoService:
     def __init__(self, ServiceKey=''):
@@ -389,7 +389,7 @@ class VilageFcstMsgService:
         DF['requestTime']  = pd.to_datetime(datetime.now().replace(microsecond=0))
         return DF
 
-    def __get_Fcst(self, regId, save_path, ftype, show_url):
+    def __get_Fcst(self, regId, save_path, show_url, ftype):
         url = f"http://apis.data.go.kr/1360000/VilageFcstMsgService/get{ftype}"
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
@@ -409,11 +409,105 @@ class VilageFcstMsgService:
         return DF
 
     def getLandFcst(self, regId, save_path=False, show_url=False):
-        return self.__get_Fcst(regId, save_path, 'LandFcst', show_url)
+        return self.__get_Fcst(regId, save_path, show_url, 'LandFcst')
 
     def getSeaFcst(self, regId, save_path=False, show_url=False):
-        return self.__get_Fcst(regId, save_path, 'SeaFcst', show_url)
+        return self.__get_Fcst(regId, save_path, show_url, 'SeaFcst')
 
 class WthrWrnInfoService:
     def __init__(self, ServiceKey=''):
         self.ServiceKey	= ServiceKey
+
+    def __xml_to_dataframe(self, tree):
+        root = tree.getroot();list_data = []
+        for header in root.iter('header'):
+            resultCode = header.find('resultCode').text
+            resultMsg  = header.find('resultMsg').text
+            if resultCode == "00":
+                for body in root.iter('body'):
+                    for items in body.iter('items'):
+                        for item in items.iter('item'):
+                            dict_tmp = {}
+                            for elem in item.iter():
+                                dict_tmp[elem.tag] = elem.text
+                            list_data.append(dict_tmp)
+            elif resultCode == "03": return pd.DataFrame()
+            else: assert False, f"NOT NORMAL RESPONSE OF API: {resultMsg}({resultCode})"
+        return pd.DataFrame(list_data)
+
+    def __get_Wthr(self, stnId, fromTmFc, toTmFc, save_path, show_url, ftype):
+        url = f"http://apis.data.go.kr/1360000/WthrWrnInfoService/getWthr{ftype}"
+        url = f"{url}?serviceKey={self.ServiceKey}"
+        url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
+        url = f"{url}&stnId={stnId}"
+        url = f"{url}&fromTmFc={fromTmFc:%Y%m%d}&toTmFc={toTmFc:%Y%m%d}"
+        if show_url: print(url)
+
+        tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
+        if save_path: tree.write(save_path, encoding='utf-8')
+
+        DF = self.__xml_to_dataframe(tree)
+        if DF.empty: return DF
+        DF['tmFc'] = pd.to_datetime(DF['tmFc'],format="%Y%m%d%H%M")
+        DF.set_index('tmFc',inplace=True)
+        if ftype == 'WrnMsg': DF['t5'] = pd.to_datetime(DF['t5'],format="%Y%m%d%H%M")
+        return DF
+
+    def getWthrWrnList(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"WrnList")
+    
+    def getWthrWrnMsg(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"WrnMsg")
+
+    def getWthrInfoList(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"InfoList")
+    
+    def getWthrInfo(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"Info")
+        
+    def getWthrBrkNewsList(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"BrkNewsList")
+    
+    def getWthrBrkNews(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"BrkNews")
+    
+    def getWthrPwnList(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"PwnList")
+    
+    def getWthrPwn(self, stnId, fromTmFc, toTmFc, save_path=False, show_url=False):
+        return self.__get_Wthr(stnId,fromTmFc,toTmFc,save_path,show_url,"Pwn")
+    
+    def getPwnCd(self, stnId, fromTmFc, toTmFc, areaCode, warningType, save_path=False, show_url=False):
+        url = f"http://apis.data.go.kr/1360000/WthrWrnInfoService/getPwnCd"
+        url = f"{url}?serviceKey={self.ServiceKey}"
+        url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
+        url = f"{url}&stnId={stnId}"
+        url = f"{url}&fromTmFc={fromTmFc:%Y%m%d}&toTmFc={toTmFc:%Y%m%d}"
+        url = f"{url}&areaCode={areaCode}&warningType={warningType}"
+        if show_url: print(url)
+
+        tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
+        if save_path: tree.write(save_path, encoding='utf-8')
+
+        DF = self.__xml_to_dataframe(tree)
+        if DF.empty: return DF
+        DF['tmFc']      = pd.to_datetime(DF['tmFc'],format="%Y%m%d%H%M")
+        DF['startTime'] = pd.to_datetime(DF['startTime'],format="%Y%m%d%H%M")
+        DF.set_index('tmFc',inplace=True)
+        return DF
+
+    def getPwnStatus(self, save_path=False, show_url=False):
+        url = f"http://apis.data.go.kr/1360000/WthrWrnInfoService/getPwnStatus"
+        url = f"{url}?serviceKey={self.ServiceKey}"
+        url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
+        if show_url: print(url)
+        
+        tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
+        if save_path: tree.write(save_path, encoding='utf-8')
+
+        DF = self.__xml_to_dataframe(tree)
+        if DF.empty: return DF
+        DF['tmEf'] = pd.to_datetime(DF['tmEf'],format="%Y%m%d%H%M")
+        DF['tmFc'] = pd.to_datetime(DF['tmFc'],format="%Y%m%d%H%M")
+        DF.set_index('tmFc',inplace=True)
+        return DF
