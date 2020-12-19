@@ -1,4 +1,6 @@
 ###########################################################
+#                                        중기예보 조회서비스
+#
 # File: tutorial_MidFcstInfoService.py
 #
 # Python == 3.8.5
@@ -8,7 +10,7 @@
 ###########################################################
 
 from openAPI_KMA import MidFcstInfoService
-from datetime import datetime, time, timedelta
+from datetime import datetime, time
 
 ServiceKey = " 이곳에 Data.go.kr에서 발급받은 ServiceKey를 입력하세요. "
 
