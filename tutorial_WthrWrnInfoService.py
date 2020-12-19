@@ -13,7 +13,6 @@ from openAPI_KMA import WthrWrnInfoService
 from datetime import datetime, timedelta
 
 ServiceKey = " 이곳에 Data.go.kr에서 발급받은 ServiceKey를 입력하세요. "
-ServiceKey = "BdJLVP6Ht6Z41L%2B5lMY8Fzeyob4xWJwkdI2a%2BHZ6aN7yWYjS6n9DAUGSPGf%2FZXujsUFZ2r4XH4hs7UjQSILr%2Fw%3D%3D"
 
 KMA = WthrWrnInfoService(ServiceKey)
 
