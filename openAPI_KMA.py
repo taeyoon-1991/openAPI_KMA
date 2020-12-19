@@ -42,7 +42,7 @@ class VilageFcstInfoService:
     def __init__(self, ServiceKey=''):
         self.ServiceKey	= ServiceKey
 
-    def get_VilageFcst_baseTime(self, time):
+    def __get_baseTime_VilageFcst(self, time):
         h = time.hour
         if h < 2:
             time = time + timedelta(days=-1)
@@ -60,7 +60,7 @@ class VilageFcstInfoService:
         _check_valid_time(fcst_time)
         return {"Production-time": fcst_time,"baseTime":fcst_time}
     
-    def get_UltraSrtFcst_baseTime(self, time):
+    def __get_baseTime_UltraSrtFcst(self, time):
         fcst_time = time.replace(minute=30,second=0,microsecond=0)
         if time.minute < 30: fcst_time = fcst_time + timedelta(hours=-1)
 
@@ -72,7 +72,7 @@ class VilageFcstInfoService:
         _check_valid_time(fcst_time)
         return {"Production-time": fcst_time,"baseTime":fcst_time}
 
-    def get_UltraSrtNcst_baseTime(self, time):
+    def __get_baseTime_UltraSrtNcst(self, time):
         ncst_time = time.replace(minute=30,second=0,microsecond=0)
         if time.minute < 30: ncst_time = ncst_time + timedelta(hours=-1)
         
@@ -84,17 +84,20 @@ class VilageFcstInfoService:
         _check_valid_time(ncst_time)
         return {"Production-time": ncst_time,"baseTime":ncst_time.replace(minute=0)}
 
-    def getFcstVersion(self, ftype, basedatetime, save_path=False, show_url=False):
+    def getFcstVersion(self, ftype, time, save_path=False, show_url=False):
         assert ftype in ['ODAM','VSRT','SHRT'], \
             f"ftype shoud be one of 'ODAM'/'VSRT'/'SHRT', (UltraSrtNcst-ODAM, UltraSrtFcst-VSRT, VilageFcst-SHRT)"
         
-        _check_valid_time(basedatetime)        
-        basedatetime = basedatetime.strftime('%Y%m%d%H%M')
+        basedatetime = ''
+        if   ftype == 'ODAM': basedatetime = self.__get_baseTime_UltraSrtNcst(time)['baseTime']
+        elif ftype == 'VSRT': basedatetime = self.__get_baseTime_UltraSrtFcst(time)['baseTime']
+        else:                 basedatetime = self.__get_baseTime_VilageFcst(time)['baseTime'] # <-SHRT
+        _check_valid_time(basedatetime)
 
         url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getFcstVersion"
         url = f"{url}?serviceKey={self.ServiceKey}"
         url = f"{url}&pageNo=1&numOfRows=10&dataType=XML"
-        url = f"{url}&ftype={ftype}&basedatetime={basedatetime}&"
+        url = f"{url}&ftype={ftype}&basedatetime={basedatetime:%Y%m%d%H%M}&"
         if show_url: print(url)
 
         tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
@@ -110,12 +113,12 @@ class VilageFcstInfoService:
                         for item in items.iter('item'):
                             version = item.find('version').text
                             version = datetime.strptime(version, "%Y%m%d%H%M%S")
-                            return version
+                            return {'base':basedatetime, 'ver':version}
             else: assert False, f"{ftype},{basedatetime}: {resultMsg}({resultCode})"
 
-    def __get_Fcst(self, X, Y, baseDateTime, save_path, show_url, ftype, version):
-        baseDate = baseDateTime.strftime("%Y%m%d")
-        baseTime = baseDateTime.strftime("%H%M")
+    def __get_Fcst(self, X, Y, save_path, show_url, ftype, version):
+        baseDate = version['base'].strftime("%Y%m%d")
+        baseTime = version['base'].strftime("%H%M")
 
         url = f"http://apis.data.go.kr/1360000/VilageFcstInfoService/get{ftype}"
         url = f"{url}?serviceKey={self.ServiceKey}"
@@ -135,13 +138,13 @@ class VilageFcstInfoService:
         DF = DF.groupby([DF.index, 'category'])['fcstValue'].aggregate('first').unstack()
         DF['nx']=nx;DF['ny']=ny;DF['baseDateTime']=baseDateTime;DF['type']=ftype
         DF['baseDateTime'] = pd.to_datetime(DF['baseDateTime'],format="%Y%m%d%H%M")
-        DF['version'] = version
+        DF['version'] = version['ver']
         DF.index.name = 'fcstDateTime'
         return DF
 
-    def __get_Ncst(self, X, Y, baseDateTime, save_path, show_url, version):
-        baseDate = baseDateTime.strftime("%Y%m%d")
-        baseTime = baseDateTime.strftime("%H%M")
+    def __get_Ncst(self, X, Y, save_path, show_url, version):
+        baseDate = version['base'].strftime("%Y%m%d")
+        baseTime = version['base'].strftime("%H%M")
 
         url = f"http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
@@ -155,31 +158,27 @@ class VilageFcstInfoService:
 
         DF = _xml_to_dataframe(tree)
         DF['baseDateTime'] = DF['baseDate'] + DF['baseTime']
-        baseDateTime = DF['baseDate'][0] + DF['baseTime'][0]
         nx = DF['nx'][0];ny = DF['ny'][0]
         DF.set_index(pd.to_datetime(DF['baseDateTime'],format="%Y%m%d%H%M"),inplace=True)
         DF = DF.groupby([DF.index, 'category'])['obsrValue'].aggregate('first').unstack()
         DF = DF.to_dict('index');DF = pd.DataFrame.from_dict(DF, orient='index')
         DF['nx']=nx;DF['ny']=ny;DF['type']='UltraSrtNcst'
-        DF['version'] = version
+        DF['version'] = version['ver']
         DF.index.name = 'baseDateTime'
         return DF
 
 
-    def getVilageFcst(self, X, Y, datetime, save_path=False, show_url=False):
-        baseDateTime = self.get_VilageFcst_baseTime(datetime)['baseTime']
-        version = self.getFcstVersion('SHRT', baseDateTime)
-        return self.__get_Fcst(X,Y,baseDateTime,save_path,show_url,'VilageFcst',version)
+    def getVilageFcst(self, X, Y, time, save_path=False, show_url=False):
+        version = self.getFcstVersion('SHRT', time)
+        return self.__get_Fcst(X,Y,save_path,show_url,'VilageFcst',version)
 
-    def getUltraSrtFcst(self, X, Y, datetime, save_path=False, show_url=False):
-        baseDateTime = self.get_UltraSrtFcst_baseTime(datetime)['baseTime']
-        version = self.getFcstVersion('VSRT', baseDateTime)
-        return self.__get_Fcst(X,Y,baseDateTime,save_path,show_url,'UltraSrtFcst',version)
+    def getUltraSrtFcst(self, X, Y, time, save_path=False, show_url=False):
+        version = self.getFcstVersion('VSRT', time)
+        return self.__get_Fcst(X,Y,save_path,show_url,'UltraSrtFcst',version)
 
-    def getUltraSrtNcst(self, X, Y, datetime, save_path=False, show_url=False):
-        baseDateTime = self.get_UltraSrtNcst_baseTime(datetime)['baseTime']
-        version = self.getFcstVersion('ODAM', baseDateTime)
-        return self.__get_Ncst(X,Y,baseDateTime,save_path,show_url,version)
+    def getUltraSrtNcst(self, X, Y, time, save_path=False, show_url=False):
+        version = self.getFcstVersion('ODAM', time)
+        return self.__get_Ncst(X,Y,save_path,show_url,version)
 
 class AsosHourlyInfoService:
     def __init__(self, ServiceKey=''):
