@@ -413,3 +413,7 @@ class VilageFcstMsgService:
 
     def getSeaFcst(self, regId, save_path=False, show_url=False):
         return self.__get_Fcst(regId, save_path, 'SeaFcst', show_url)
+
+class WthrWrnInfoService:
+    def __init__(self, ServiceKey=''):
+        self.ServiceKey	= ServiceKey
