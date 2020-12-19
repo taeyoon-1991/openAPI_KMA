@@ -19,9 +19,9 @@ KMA = VilageFcstMsgService(ServiceKey)
 
 # #=====================================================================================
 # #기상개황 조회 ------------------------------------------------------------------------
-stnId = '108'
+stnId = '108' #발표관서
 df_WthrSituation = KMA.getWthrSituation(stnId)
-print(df_WthrSituation)
+print("1. 기상개황\n", df_WthrSituation, '\n')
 # #개황정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
 # #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
 #df_WthrSituation = KMA.getWthrSituation(stnId, save_path="./test_VilageFcstMsgService_WthrSituation.xml")
@@ -31,14 +31,14 @@ print(df_WthrSituation)
 df_WthrSituation.to_csv('./test_VilageFcstMsgService_WthrSituation.csv', encoding='euc-kr')
 
 # #육상예보 조회 ------------------------------------------------------------------------
-regId = '11A00101'
+regId = '11A00101' #예보구역코드
 df_LandFcst = KMA.getLandFcst(regId)
-print(df_LandFcst)
+print("2. 육상예보\n", df_LandFcst, '\n')
 df_LandFcst.to_csv('./test_VilageFcstMsgService_LandFcst.csv', encoding='euc-kr')
 
 # #해상예보 조회 ------------------------------------------------------------------------
-regId = '12A20100'
+regId = '12A20100' #예보구역코드
 df_SeaFcst = KMA.getSeaFcst(regId)
-print(df_SeaFcst)
+print("3. 해상예보\n", df_SeaFcst)
 df_SeaFcst.to_csv('./test_VilageFcstMsgService_SeaFcst.csv', encoding='euc-kr')
 # #=====================================================================================

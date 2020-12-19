@@ -20,16 +20,14 @@ KMA = MidFcstInfoService(ServiceKey)
 # #현재 시점을 기준으로 최신 예보정보를 조회하겠습니다. 
 time = datetime.now()
 #time = datetime.strptime("2020-12-15 10:59:00","%Y-%m-%d %H:%M:%S")
-print(f"[Time: {time:%Y-%m-%d %H:%M}] 중기예보 조회서비스")
 
-# #중기예보 발표시각(tmFc) 계산
-tmFc = KMA.get_tmFc(time)
+stnId = 108 #지점번호	
 
 # #=====================================================================================
 # #중기전망 조회 ------------------------------------------------------------------------
-stnId = 108
+
 df_MidFcst = KMA.getMidFcst(stnId, time)
-print(df_MidFcst, '\n')
+print("1. 중기전망\n", df_MidFcst, '\n')
 # #예보정보를 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
 # #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
 #df_MidFcst = KMA.getMidFcst(stnId, time, save_path="./test_MidFcstInfoService_MidFcst.xml")
@@ -41,18 +39,18 @@ df_MidFcst.to_csv('./test_MidFcstInfoService_MidFcst.csv',encoding='euc-kr')
 # #중기기온 조회 ------------------------------------------------------------------------
 regId = '11B10101'
 df_MidTa = KMA.getMidTa(regId, time)
-print(df_MidTa, '\n')
+print("2. 중기기온\n", df_MidTa, '\n')
 df_MidTa.to_csv('./test_MidFcstInfoService_MidTa.csv',encoding='euc-kr')
 
 # #중기육상예보 조회 --------------------------------------------------------------------
 regId = '11B00000'
 df_MidLandFcst = KMA.getMidLandFcst(regId, time)
-print(df_MidLandFcst, '\n')
+print("3. 중기육상예보\n", df_MidLandFcst, '\n')
 df_MidLandFcst.to_csv('./test_MidFcstInfoService_MidLandFcst.csv',encoding='euc-kr')
 
 # #중기해상예보 조회 --------------------------------------------------------------------
 regId = '12A20000'
 df_MidSeaFcst = KMA.getMidSeaFcst(regId, time)
-print(df_MidSeaFcst, '\n')
+print("4. 중기해상예보\n", df_MidSeaFcst, '\n')
 df_MidSeaFcst.to_csv('./test_MidFcstInfoService_MidSeaFcst.csv',encoding='euc-kr')
 # #=====================================================================================

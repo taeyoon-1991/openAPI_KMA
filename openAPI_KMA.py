@@ -217,7 +217,7 @@ class MidFcstInfoService:
     def __init__(self, ServiceKey=''):
         self.ServiceKey	= ServiceKey
 
-    def get_tmFc(self, time):
+    def __get_tmFc(self, time):
         time = time.replace(minute=0,second=0,microsecond=0)
         h = time.hour
         if   h >= 18: time = time.replace(hour=18)
@@ -228,7 +228,7 @@ class MidFcstInfoService:
         return time
 
     def getMidFcst(self, stnId, tmFc, save_path=False, show_url=False):
-        tmFc = self.get_tmFc(tmFc)
+        tmFc = self.__get_tmFc(tmFc)
 
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidFcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
@@ -244,7 +244,7 @@ class MidFcstInfoService:
         return DF
     
     def getMidTa(self, regId, tmFc, save_path=False, show_url=False):
-        tmFc = self.get_tmFc(tmFc)
+        tmFc = self.__get_tmFc(tmFc)
 
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa"
         url = f"{url}?serviceKey={self.ServiceKey}"
@@ -275,7 +275,7 @@ class MidFcstInfoService:
         return DF
 
     def getMidLandFcst(self, regId, tmFc, save_path=False, show_url=False):
-        tmFc = self.get_tmFc(tmFc)
+        tmFc = self.__get_tmFc(tmFc)
         
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
@@ -306,7 +306,7 @@ class MidFcstInfoService:
         return DF
 
     def getMidSeaFcst(self, regId, tmFc, save_path=False, show_url=False):
-        tmFc = self.get_tmFc(tmFc)
+        tmFc = self.__get_tmFc(tmFc)
         
         url = f"http://apis.data.go.kr/1360000/MidFcstInfoService/getMidSeaFcst"
         url = f"{url}?serviceKey={self.ServiceKey}"
