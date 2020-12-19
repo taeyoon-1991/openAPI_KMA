@@ -85,7 +85,8 @@ class VilageFcstInfoService:
         return {"Production-time": ncst_time,"baseTime":ncst_time.replace(minute=0)}
 
     def getFcstVersion(self, ftype, basedatetime, save_path=False, show_url=False):
-        assert ftype in ['ODAM','VSRT','SHRT'], f"ftype shoud be one of 'ODAM'/'VSRT'/'SHRT', (UltraSrtNcst-ODAM, UltraSrtFcst-VSRT, VilageFcst-SHRT)"
+        assert ftype in ['ODAM','VSRT','SHRT'], \
+            f"ftype shoud be one of 'ODAM'/'VSRT'/'SHRT', (UltraSrtNcst-ODAM, UltraSrtFcst-VSRT, VilageFcst-SHRT)"
         
         _check_valid_time(basedatetime)        
         basedatetime = basedatetime.strftime('%Y%m%d%H%M')
@@ -368,3 +369,47 @@ class AsosDalyInfoService:
         end   = pd.to_datetime(  endDt)
         df_time = pd.DataFrame(index=(pd.date_range(start, end, freq='D')))
         return pd.concat([ df_time, DF ],axis=1)
+
+class VilageFcstMsgService:
+    def __init__(self, ServiceKey=''):
+        self.ServiceKey	= ServiceKey
+            
+    def getWthrSituation(self, stnId, save_path=False, show_url=False):
+        url = f"http://apis.data.go.kr/1360000/VilageFcstMsgService/getWthrSituation"
+        url = f"{url}?serviceKey={self.ServiceKey}"
+        url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
+        url = f"{url}&stnId={stnId}"
+        if show_url: print(url)
+
+        tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
+        if save_path: tree.write(save_path, encoding='utf-8')
+
+        DF = _xml_to_dataframe(tree);DF['stnId'] = stnId
+        DF.set_index('tmFc',inplace=True);DF.index = pd.to_datetime(DF.index)
+        DF['requestTime']  = pd.to_datetime(datetime.now().replace(microsecond=0))
+        return DF
+
+    def __get_Fcst(self, regId, save_path, ftype, show_url):
+        url = f"http://apis.data.go.kr/1360000/VilageFcstMsgService/get{ftype}"
+        url = f"{url}?serviceKey={self.ServiceKey}"
+        url = f"{url}&pageNo=1&numOfRows=999&dataType=XML"
+        url = f"{url}&regId={regId}"
+        if show_url: print(url)
+
+        tree = ET.parse(urlopen(url), parser=ET.XMLParser(encoding='utf-8'))
+        if save_path: tree.write(save_path, encoding='utf-8')
+
+        DF = _xml_to_dataframe(tree)
+        DF.set_index('numEf',inplace=True)
+        if ftype == 'LandFcst':
+            DF['announceTime'] = pd.to_datetime(DF['announceTime'],format="%Y%m%d%H%M")
+        else :#ftype == 'SeaFcst':
+            DF['tmFc'] = pd.to_datetime(DF['tmFc'],format="%Y%m%d%H%M")
+        DF['requestTime']  = pd.to_datetime(datetime.now().replace(microsecond=0))
+        return DF
+
+    def getLandFcst(self, regId, save_path=False, show_url=False):
+        return self.__get_Fcst(regId, save_path, 'LandFcst', show_url)
+
+    def getSeaFcst(self, regId, save_path=False, show_url=False):
+        return self.__get_Fcst(regId, save_path, 'SeaFcst', show_url)
