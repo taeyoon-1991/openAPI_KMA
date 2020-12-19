@@ -90,6 +90,14 @@
   * 서비스별 지점 및 구역 코드는아래 상세 가이드 문서의 부록에 정리되어 있습니다. 참고하십시오.
   * [기상청20_중기예보 조회서비스_오픈API활용가이드](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)  
 
+  ## 1.3 동네예보 통보문 조회서비스(VilageFcstMsgService)
+  사용예시: [tutorial_VilageFcstMsgService.py](tutorial_VilageFcstMsgService.py)
+  |서비스명|기능|인자|기타|
+  |------|---|---|---|
+  |기상개황조회|**getWthrSituation**|발표관서||
+  |육상예보조회|**getLandFcst**|예보구역코드||
+  |해상예보조회|**getSeaFcst**|예보구역코드||
+
 </details>
 
 ___
