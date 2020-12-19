@@ -7,14 +7,14 @@
 (2020년 12월 18일 기준)
 * [동네예보 조회서비스(VilageFcstInfoService)](DOCUMENT/기상청18_동네예보&#32;조회서비스_오픈API활용가이드.docx)
 * [중기예보 조회서비스(MidFcstInfoService)](DOCUMENT/기상청20_중기예보&#32;조회서비스_오픈API활용가이드.docx)
+* [동네예보 통보문 조회서비스(VilageFcstMsgService)](DOCUMENT/기상청19_동네예보&#32;통보문&#32;조회서비스_오픈API활용가이드.docx)
 * [지상(종관, ASOS) 시간자료 조회서비스(AsosHourlyInfoService)](DOCUMENT/기상청01_지상(종관,ASOS)시간자료_조회서비스_오픈API활용가이드.docx)
 * [지상(종관, ASOS) 일자료 조회서비스(AsosHourlyInfoService)](DOCUMENT/기상청02_지상(종관,ASOS)일자료_조회서비스_오픈API활용가이드.docx)
+* [기상특보 조회서비스(WthrWrnInfoService)](DOCUMENT/기상청21_기상특보&#32;조회서비스_오픈API활용가이드.docx)
 
   <details>
     <summary>(예정)</summary>
-
-    * 동네예보 통보문 조회서비스(VilageFcstMsgService)  
-    * 기상특보 조회서비스(WthrWrnInfoService)  
+  
     * 생활기상지수 조회서비스(LivingWthrIdxService01)  
     * 태풍정보 조회서비스(TyphoonInfoService)  
     * 기상청_지진정보(EqkInfoService)  
@@ -154,7 +154,26 @@ ___
 
 <details>
   <summary><strong>5. 특보 및 지진/태풍 관련 서비스</strong></summary>
-  (예정)
+
+## 5.1 기상특보 조회서비스(WthrWrnInfoService)
+사용예시: [tutorial_WthrWrnInfoService.py](tutorial_WthrWrnInfoService.py)
+|서비스명|기능|인자|기타|
+|------|---|---|---|
+|기상특보목록조회|**getWthrWrnList**|지점코드, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상특보통보문조회|**getWthrWrnMsg**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상정보목록조회|**getWthrInfoList**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상정보문조회|**getWthrInfo**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상속보목록조회|**getWthrBrkNewsList**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상속보조회|**getWthrBrkNews**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상예비특보목록조회|**getWthrPwnList**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|기상예비특보조회|**getWthrPwn**|지점번호, 시작날짜, 종료날짜|한 번에 최대 999개까지 조회 가능|
+|특보코드조회|**getPwnCd**|지점번호, 시작날짜, 종료날짜, 특보구역코드, 특보종류|한 번에 최대 999개까지 조회 가능|
+|특보현황조회|**getPwnStatus**| - |한 번에 최대 999개까지 조회 가능|
+* 조회기간 동안 특보가 없을 시 빈(Empty) DataFrame을 받습니다. 
+* [기상청21_기상특보 조회서비스_오픈API활용가이드_특보구역코드 해당 지점](METADATA/기상청21_기상특보&#32;조회서비스_오픈API활용가이드_특보구역코드&#32;해당&#32;지점.csv)  
+* [기상청21_기상특보 조회서비스_오픈API활용가이드_특보구역코드안내(200515)](METADATA/기상청21_기상특보&#32;조회서비스_오픈API활용가이드_특보구역코드안내(200515)/)  
+* [기상청21_기상특보 조회서비스_오픈API활용가이드](DOCUMENT/기상청21_기상특보&#32;조회서비스_오픈API활용가이드.docx)
+
 </details>
 
 ---
