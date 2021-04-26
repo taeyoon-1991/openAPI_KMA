@@ -9,7 +9,7 @@
 # Email: eom.taeyoon.kor@gmail.com
 ###########################################################
 
-from openAPI_KMA import MidFcstInfoService
+from openKMA import MidFcstInfoService
 from datetime import datetime, time
 
 ServiceKey = " 이곳에 Data.go.kr에서 발급받은 ServiceKey를 입력하세요. "
