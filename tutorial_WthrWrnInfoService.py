@@ -5,32 +5,34 @@
 #
 # Python == 3.8.5
 #
-# Created by 엄태윤 on Dec. 19, 2020
-# Email: eom.taeyoon.kor@gmail.com
+# Created by 엄태윤 on Apr. 26, 2021
+# eom.taeyoon.kor@gmail.com
 ###########################################################
 
 from openKMA import WthrWrnInfoService
 from datetime import datetime, timedelta
 
-ServiceKey = " 이곳에 Data.go.kr에서 발급받은 ServiceKey를 입력하세요. "
+ServiceKey = "BdJLVP6Ht6Z41L%2B5lMY8Fzeyob4xWJwkdI2a%2BHZ6aN7yWYjS6n9DAUGSPGf%2FZXujsUFZ2r4XH4hs7UjQSILr%2Fw%3D%3D"
 
 KMA = WthrWrnInfoService(ServiceKey)
 
-""" 기상특보는 현재기준 최대 6일 전까지만 조회 가능합니다. """
+stnId = 108 #지점번호, 서울 108
 
-# #현재 시점을 기준으로 최근 5일 동안 기상특보를 조회하겠습니다. 
+""" 기상특보는 현재기준 최대 6일 전까지만 조회 가능합니다.
+    현재 시점을 기준으로 최근 5일 동안 기상특보를 조회하겠습니다. """
 toTmFc   = datetime.now()
 fromTmFc = toTmFc + timedelta(days=-5)
 
 # #=====================================================================================
 # #기상특보목록 조회 --------------------------------------------------------------------
-stnId = 108
 df_WthrWrnList = KMA.getWthrWrnList(stnId, fromTmFc, toTmFc)
 print("1-1. 기상특보목록\n", df_WthrWrnList, '\n')
+
 # #기상특보목록을 XML파일로 저장하고 싶으면 [ save_path = "./file_name.xml" ] 를 추가하세요.
+df_WthrWrnList = KMA.getWthrWrnList(stnId, fromTmFc, toTmFc, save_path='./test_WthrWrnInfoService_WthrWrnList.xml')
+
 # #조회된 실제 URL주소를 보고싶으면 [ show_url = True ] 를 추가하세요.
-#df_WthrWrnList = KMA.getWthrWrnList(stnId, fromTmFc, toTmFc, save_path='./test_WthrWrnInfoService_WthrWrnList.xml')
-#df_WthrWrnList = KMA.getWthrWrnList(stnId, fromTmFc, toTmFc, show_url=True)
+df_WthrWrnList = KMA.getWthrWrnList(stnId, fromTmFc, toTmFc, show_url=True)
 
 # #데이터프레임을 CSV파일로 저장하고 싶으면 [ .to_csv("./file_name.csv") ] 를 붙이세요.
 df_WthrWrnList.to_csv('./test_WthrWrnInfoService_WthrWrnList.csv', encoding='euc-kr')
@@ -81,4 +83,5 @@ df_PwnCd.to_csv('./test_WthrWrnInfoService_PwnCd.csv', encoding='euc-kr')
 df_PwnStatus = KMA.getPwnStatus()
 print("6. 특보현황\n", df_PwnStatus, '\n')
 df_PwnStatus.to_csv('./test_WthrWrnInfoService_PwnStatus.csv', encoding='euc-kr')
+
 # #=====================================================================================
